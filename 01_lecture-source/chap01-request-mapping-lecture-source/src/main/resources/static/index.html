@@ -10,5 +10,44 @@
     <h2>1. 메소드에 요청 매핑하기</h2>
     <h3>GET 방식의 요청 : /menu/regist</h3>
     <button onclick="location.href='/menu/regist'">GET 메뉴 등록 요청</button>
+    <hr>
+    <h3>POST : /menu/regist</h3>
+    <form action="/menu/regist" method="post">
+        <button type="submit">POST 메뉴 등록 요청</button>
+    </form>
+    <hr>
+    <h3>GET : /menu/modify</h3>
+    <button onclick="location.href='/menu/modify'">
+        GET 메뉴 수정 요청
+    </button>
+    <h3>POST : /menu/modify</h3>
+    <form action="/menu/modify" method="post">
+        <button type="submit">POST 메뉴 수정 요청</button>
+    </form>
+    <hr>
+    <h3>GET : /menu/delete</h3>
+    <button onclick="location.href='/menu/delete'">GET 메뉴 삭제 요청</button>
+    <h3>POST : /menu/delete</h3>
+    <form action="/menu/delete" method="post">
+        <button type="submit">POST 메뉴 삭제 요청</button>
+    </form>
+    <hr>
+    <h2>2. 클래스에 요청 매핑하기</h2>
+    <h3>GET : /order/regist</h3>
+    <button onclick="location.href='/order/regist'">GET 주문 등록하기</button>
+    <h3>POST : /order/modify</h3>
+    <form action="/order/modify" method="post">
+        <button type="submit">POST 주문 수정하기</button>
+    </form>
+
+    <h3>POST : /order/delete</h3>
+    <form action="/order/delete" method="post">
+        <button type="submit">POST 주문 삭제하기</button>
+    </form>
+
+    <h3>GET : /order/detail/{orderNo}</h3>
+    <button onclick="location.href='/order/detail/3'">GET 주문 상세보기</button>
+
+
 </body>
 </html>
