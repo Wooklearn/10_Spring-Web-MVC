@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>핸들러 메소드의 Parameter 관련 어노테이션</h1>
+
+    <h3>1. WebRequest 객체를 이용한 요청 파라미터 전달 받기</h3>
+    <button onclick="location.href='/request/regist'">파라미터 전달</button>
+    <hr>
+    <h3>2. @RequestParam 어노테이션을 이용한 파라미터 전달 받기</h3>
+    <button onclick="location.href='/request/modify'">@RequestParam 이용</button>
+    <hr>
+    <h3>:👀 3. @ModelAttribute 를 이용한 파라미터 전달 받기 👀</h3>
+    <button onclick="location.href='/request/search'">@ModelAttribute 이용</button>
+</body>
+</html>
