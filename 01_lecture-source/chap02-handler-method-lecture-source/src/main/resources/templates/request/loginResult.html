@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Session 에 담긴 값 확인하기</h1>
+    <h3 th:text="|${session.id} 님 환영합니다!!|"></h3>
+    <br>
+    <button onclick="location.href='logout1'">로그아웃</button>
+    <!-- sessionAttribute 방식은 invalidate() 메소드가 적용되지 않는다. -->
+    <br>
+    <button onclick="location.href='logout2'">로그아웃2</button>
+</body>
+</html>

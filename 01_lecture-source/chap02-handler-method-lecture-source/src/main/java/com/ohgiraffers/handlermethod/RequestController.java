@@ -1,14 +1,17 @@
 package com.ohgiraffers.handlermethod;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
 @Controller
 @RequestMapping("/request/*")
+@SessionAttributes("id")
 public class RequestController {
 
     /* title. 요청 시 값을 전달 받는 방법 */
@@ -55,20 +58,21 @@ public class RequestController {
     }
 
     @GetMapping("modify")
-    public void modify() {}
+    public void modify() {
+    }
 
     /* comment.
-    *   화면에서 요청하는 값을 담아주는 어노테이션이다.
-    *   담을 매개변수 앞에 작성을 하게 되며
-    *   form 의 name 속성과 일치시켜주어야 한다.
-    *   만약에 당신이 짱구여서 말을 듣기 싫으면
-    *   @RequestParam("폼name속성") String 사용하고 싶은 변수명
-    *   name 속성이 일치하지 않을 때 400-bad request 에러가 발생한다.
-    *   이는 required 속성의 기본값이 true 이기 때문이다.
-    *   이 때 required 속성의 값을 false 로 바꿔주게 된다면
-    *   해당하는 name 속성이 일치하지 않더라도 error 를 발생시키지 않고
-    *   null 로 처리를 하게 된다.
-    *  */
+     *   화면에서 요청하는 값을 담아주는 어노테이션이다.
+     *   담을 매개변수 앞에 작성을 하게 되며
+     *   form 의 name 속성과 일치시켜주어야 한다.
+     *   만약에 당신이 짱구여서 말을 듣기 싫으면
+     *   @RequestParam("폼name속성") String 사용하고 싶은 변수명
+     *   name 속성이 일치하지 않을 때 400-bad request 에러가 발생한다.
+     *   이는 required 속성의 기본값이 true 이기 때문이다.
+     *   이 때 required 속성의 값을 false 로 바꿔주게 된다면
+     *   해당하는 name 속성이 일치하지 않더라도 error 를 발생시키지 않고
+     *   null 로 처리를 하게 된다.
+     *  */
     @PostMapping("modify")
     public String modifyMenu(Model model,
                              @RequestParam(required = false) String name,
@@ -98,22 +102,81 @@ public class RequestController {
     }
 
     @GetMapping("search")
-    public void search() {}
+    public void search() {
+    }
 
     /* comment.
-    *   지금은 요청하는 파라미터가 몇 개 안되어서
-    *   @RequestParam 어노테이션을 사용해도 간단하게 작성할 수 있다.
-    *   하지만, 받아 올 데이터가 많아진다면 관리할 변수나, 키값이
-    *   많아질 수 밖에 없다.
-    *   @ModelAttribute 객체를 생성하여 요청되는 값을 필드와
-    *   form 태그의 name 속성과 비교하여 값을 넣어준다. */
+     *   지금은 요청하는 파라미터가 몇 개 안되어서
+     *   @RequestParam 어노테이션을 사용해도 간단하게 작성할 수 있다.
+     *   하지만, 받아 올 데이터가 많아진다면 관리할 변수나, 키값이
+     *   많아질 수 밖에 없다.
+     *   @ModelAttribute 객체를 생성하여 요청되는 값을 필드와
+     *   form 태그의 name 속성과 비교하여 값을 넣어준다.
+     *   @ModelAttribute 담은 값은 view 페이지에서
+     *   타입(자료형) 앞글자를 소문자로 한 네이밍 규칙으로
+     *   사용할 수 있다.(menuDTO)
+     *   다른 이름을 사용하고 싶다면
+     *   @ModelAttribute("사용할값") 이렇게 지정도 할 수 있다.
+     *  */
     @PostMapping("search")
-    public String searchMenu(@ModelAttribute MenuDTO menu) {
+    public String searchMenu(@ModelAttribute("menu") MenuDTO menu) {
 
         System.out.println("menu = " + menu);
 
         return "request/searchResult";
     }
 
+    @GetMapping("login")
+    public void login() {
+    }
 
+    @PostMapping("login1")
+    public String sessionTest(HttpSession session,
+                              @RequestParam String id) {
+        session.setMaxInactiveInterval(60 * 60 * 24);
+        session.setAttribute("id", id);
+
+        return "request/loginResult";
+    }
+
+    @GetMapping("logout1")
+    public String logout1(HttpSession session) {
+        // 강제 session 만료 시키는 메소드
+        session.invalidate();
+
+        return "request/loginResult";
+    }
+
+    /* comment.
+     *   @SessionAttributes 를 이용한 session 에 값 담기
+     *   클래스 레벨에 SessionAttribute 을 사용하여
+     *   session 에 담을 key 값을 설정해두면
+     *   Model 영역에 해당 key 로 값이 추가되는 경우
+     *   자동으로 session 에 등록해준다. */
+    @PostMapping("login2")
+    public String sessionTest2(Model model, @RequestParam String id) {
+
+        model.addAttribute("id", id);
+
+        return "request/loginResult";
+    }
+
+    /* comment.
+     *   SessionAttributes 방식은 session 의 상태를 관리하는
+     *   SessionStatus 객체의 setComplete() 메소드를
+     *   사용해야 만료 시킬 수 있다.
+     *  */
+    @GetMapping("logout2")
+    public String logout2(SessionStatus sessionStatus) {
+
+        sessionStatus.setComplete();
+
+        return "request/loginResult";
+
+    }
+
+    @GetMapping("body")
+    public void body() {
+
+    }
 }
