@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>뷰 리졸버를 이용한 뷰 페이지 렌더링</h1>
+    <hr>
+    <h3>문자열로 뷰 이름 반환하기</h3>
+    <button onclick="location.href='string'">문자열로 view 반환</button>
+    <hr>
+    <h3>문자열로 redirect 하기</h3>
+    <button onclick="location.href='string-redirect'">문자열로 redirect 반환</button>
+    <hr>
+    <h3>문자열로 뷰 이름 반환하면서 리다이랙트 시 값 유지하기</h3>
+    <button onclick="location.href='string-redirect-attr'">리다이랙트 시 값 유지</button>
+    <script>
+        const flashMessage = `[[${flashMessage}]]`;
+        console.log(flashMessage);
+        if(flashMessage) {
+            alert(flashMessage);
+        }
+    </script>
+</body>
+</html>
