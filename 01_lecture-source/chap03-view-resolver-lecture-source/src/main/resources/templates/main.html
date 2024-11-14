@@ -23,5 +23,18 @@
             alert(flashMessage);
         }
     </script>
+    <hr>
+    <h3>ModelAndView 로 뷰이름 지정해서 반환하기</h3>
+    <button onclick="location.href='modelandview'">ModelAndView 객체 사용해서 반환</button>
+    <hr>
+    <h3>ModelAndView 로 리다이랙트 && 값 전달</h3>
+    <button onclick="location.href='modelandview-redirect-attr'">ModelAndView 로 redirect && attr</button>
+    <script>
+        const flashMessage2 = `[[${flashMessage2}]]`;
+        console.log(flashMessage2);
+        if(flashMessage2) {
+            alert(flashMessage2);
+        }
+    </script>
 </body>
 </html>

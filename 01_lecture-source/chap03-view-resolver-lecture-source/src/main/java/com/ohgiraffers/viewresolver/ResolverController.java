@@ -3,6 +3,7 @@ package com.ohgiraffers.viewresolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -32,11 +33,11 @@ public class ResolverController {
     @GetMapping("string-redirect")
     public String stringRedirect() {
         /* comment.
-        *   우리가 지금까지 view 를 반환하는 방식은
-        *   default 로 forward 방식이다.
-        *   redirect 를 하는 방법은
-        *   접두사로 redirect: 를 붙이면 된다.
-        *  */
+         *   우리가 지금까지 view 를 반환하는 방식은
+         *   default 로 forward 방식이다.
+         *   redirect 를 하는 방법은
+         *   접두사로 redirect: 를 붙이면 된다.
+         *  */
 
         return "redirect:/";
     }
@@ -57,15 +58,39 @@ public class ResolverController {
     public String redirectAttr(RedirectAttributes attr) {
 
         /* comment.
-        *   RedirectAttributes 는 Session 의 기능을 사용하지만,
-        *   Flash -> 잠깐 값이 담겼다가 소멸되는 방식을 사용한다.
-        *   Session 처럼 소멸 될 때까지 공간을 차지하는 것이 아닌
-        *   잠시 데이터를 썼다가 사라지는 구조이기 때문에 서버의 부담이 없다.
-        *  */
+         *   RedirectAttributes 는 Session 의 기능을 사용하지만,
+         *   Flash -> 잠깐 값이 담겼다가 소멸되는 방식을 사용한다.
+         *   Session 처럼 소멸 될 때까지 공간을 차지하는 것이 아닌
+         *   잠시 데이터를 썼다가 사라지는 구조이기 때문에 서버의 부담이 없다.
+         *  */
         attr.addFlashAttribute("flashMessage",
-                               "리다이랙트 시 값 유지!!");
+                "리다이랙트 시 값 유지!!");
 
         return "redirect:/";
     }
 
+    /* comment.
+    *   Model 과 View 를 합친 개념이다.
+    *   값을 집어넣을 수도 있고, 화면을 결정을 지을 수도 있다.
+    *  */
+    @GetMapping("modelandview")
+    public ModelAndView modelAndViewReturn(ModelAndView mv) {
+        // Model 객체처럼 화면에 쓰일 데이터 넣을 수 있다.
+        mv.addObject("forwardMessage",
+                     "ModelAndView 를 이용해서 반환");
+        // 문자열로 이동하고 싶은 view 페이지를 지정할 수 있다.
+        mv.setViewName("result");
+
+        return mv;
+    }
+
+    @GetMapping("modelandview-redirect-attr")
+    public ModelAndView mvRedirectAttr(ModelAndView mv, RedirectAttributes attr) {
+
+        attr.addFlashAttribute("flashMessage2",
+                "ModelAndView 리다이랙트 시 값 유지!!!");
+        mv.setViewName("redirect:/");
+
+        return mv;
+    }
 }
