@@ -16,7 +16,7 @@ public class HandleInterceptor implements HandlerInterceptor {
      *   Interceptor 는 Spring 에서 제공하는 기능이기 때문에
      *   우리가 Bean 으로 등록해둔 객체들을 언제든 참조(의존성주입)
      *   할 수 있다. */
-    
+
     @Autowired
     public HandleInterceptor(MemberService menuService) {
         this.menuService = menuService;
@@ -42,14 +42,26 @@ public class HandleInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    /* 후처리 메소드 */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
+        System.out.println("postHandler 호출됨...");
+
+        long startTime = (long) request.getAttribute("startTime");
+
+        long endTime = System.currentTimeMillis();
+
+        modelAndView.addObject("interval", endTime - startTime);
     }
 
+    /* 가장 마지막 view 가 렌더링 된 이후 동작하는 메소드 */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        System.out.println("afterCompletion 호출됨...");
+
+        menuService.method();
+
     }
 
 }
