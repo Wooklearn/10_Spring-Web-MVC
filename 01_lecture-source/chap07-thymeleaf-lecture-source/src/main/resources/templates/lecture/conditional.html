@@ -15,5 +15,42 @@
         해당 태그의 내용이 나오게 된다.
         th:unless 는 표현식의 조건식 결과가 false 일 때 처리된다.
     </p>
+    <p th:if="${ num > 0 }">넘어온 값은 0보다 큽니다.</p>
+    <p th:if="${ num < 0 }">넘어온 값은 0보다 작습니다.</p>
+    <p th:unless="${ num < 0 }">넘어온 값은 0보다 크다.</p>
+
+    <th:block th:if="${str == '사과'}">
+        <p>사과 좋아요~~</p>
+    </th:block>
+    <th:block th:if="${str == '바나나'}">
+        <p>바나나 좋아요~~</p>
+    </th:block>
+    <!-- and, or 를 사용해서 다중 조건 처리를 할 수 있다. -->
+    <p th:if="${num > 0 or num <= 10}">1부터 10까지의 양수입니다!!</p>
+    <p th:if="${str != null and str == '바나나'}">바나나 조아!!</p>
+
+    <h3>th:switch, th:case</h3>
+    <th:block th:switch="${str}">
+        <span th:case="사과">사과가 선택!!</span>
+        <span th:case="바나나">바나나가 선택!!</span>
+    </th:block>
+
+    <h3>th:each</h3>
+    <p>👍👍th:each 는 가장많이 사용하는 태그로서 제일 중요👍👍</p>
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>주소</th>
+        </tr>
+        <tr th:each="member : ${memberList}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.age}"></td>
+            <td th:text="${member.gender}"></td>
+            <td th:text="${member.address}"></td>
+        </tr>
+    </table>
+
 </body>
 </html>
