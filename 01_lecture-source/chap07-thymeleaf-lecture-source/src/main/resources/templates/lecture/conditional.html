@@ -51,6 +51,47 @@
             <td th:text="${member.address}"></td>
         </tr>
     </table>
+    <h3>th:each 는 두 번째 매개변수 stat 을 추가하게 되면, 반복 상태를 확인할 수 있다.</h3>
+    <pre>
+        index : 0 부터 시작하는 인덱스 값
+        count : 1 부터 시작하는 값
+        current : 현재 객체의 정보
+        even : 짝수 번째 여부
+        odd : 홀수 번째 여부
+        first : 첫 번째 데이터 여부
+        last : 마지막 데이터 여부
+    </pre>
+
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>주소</th>
+            <th>index</th>
+            <th>count</th>
+            <th>size</th>
+            <th>current</th>
+            <th>even</th>
+            <th>odd</th>
+            <th>first</th>
+            <th>last</th>
+        </tr>
+        <tr th:each="member, stat : ${memberList}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.age}"></td>
+            <td th:text="${member.gender}"></td>
+            <td th:text="${member.address}"></td>
+            <td th:text="${stat.index}"></td>
+            <td th:text="${stat.count}"></td>
+            <td th:text="${stat.size}"></td>
+            <td th:text="${stat.current}"></td>
+            <td th:text="${stat.even}"></td>
+            <td th:text="${stat.odd}"></td>
+            <td th:text="${stat.first}"></td>
+            <td th:text="${stat.last}"></td>
+        </tr>
+    </table>
 
 </body>
 </html>

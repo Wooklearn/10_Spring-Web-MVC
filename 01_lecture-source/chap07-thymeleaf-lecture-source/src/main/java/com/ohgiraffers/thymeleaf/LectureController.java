@@ -45,4 +45,18 @@ public class LectureController {
         return mv;
     }
 
+    @GetMapping("etc")
+    public ModelAndView etc(ModelAndView mv) {
+
+        SearchCriteria criteria = new SearchCriteria(1, 10, 3);
+
+        // key = value 형식으로 저장 가능하지만, key 를 작성하지 않을 시
+        // 인스턴스의 타입 = 클래스 명이 곧 키값이 된다.
+        mv.addObject(criteria);
+
+        mv.setViewName("lecture/etc");
+
+        return mv;
+    }
+
 }
