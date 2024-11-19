@@ -11,8 +11,55 @@
     <h1>기타 문법 정리</h1>
 
     <h3>th:with = 지역변수를 지정해서 사용할 수 있다.</h3>
-    <th:block th:with="start = ${searchCriteria}">
-
+    <th:block th:with="start = ${searchCriteria.startPage}, last = ${searchCriteria.endPage}">
+        <!--
+         #numbers : Utility Object 라고 하며, 타임리트 문서 내부에서
+         사용할 수 있는 유용한 객체라고 생각하면 편하다.
+         이는 우리가 자바 클래스에서 Math 클래스를 사용할 수 있는 것 처럼
+         누군가가 만들어둔 유용한 기능이다.
+         그 중 sequence 라는 메소드는 1번째 전달인자 부터 2번째 전달인자까지
+         반복을 한다. ex) (5, 10) -> 5, 6, 7, 8, 9, 10
+         -->
+        <th:block th:each="p : ${#numbers.sequence(start, last)}">
+            <th:block th:if="${searchCriteria.currentPage eq p}">
+                <button th:text="${p}" disabled></button>
+            </th:block>
+            <th:block th:if="${searchCriteria.currentPage ne p}">
+                <button th:text="${p}"></button>
+            </th:block>
+        </th:block>
     </th:block>
+
+    <h3>SpringEL</h3>
+    <p>
+        변수 표현식 ${} 은 SpringEL 이라는 스프링에서 제공하는 표현식을 사용할 수 있다.
+        단순한 변수가 아닌, Object-List-Map 같은 객체를 사용하기 위해 활용할 수 있다.
+    </p>
+    <p>List 타입 객체</p>
+    <ul>
+        <!--
+            DTO 클래스에 작성한 getter, 필드, ['필드명'] 이런 식으로
+            해당하는 데이터에 접근할 수 있다.
+         -->
+        <li th:text="${memberList[1].name}"></li>
+        <li th:text="${memberList[1]['age']}"></li>
+        <li th:text="${memberList[1].getGender()}"></li>
+        <li th:text="${memberList.get(1).getGender()}"></li>
+        <li th:text="${memberList.get(1).address}"></li>
+    </ul>
+    <p>Map 타입의 객체</p>
+    <ul>
+        <li th:text="${memberMap['1'].name}"></li>
+        <li th:text="${memberMap['3']['age']}"></li>
+        <li th:text="${memberMap['3'].getGender()}"></li>
+    </ul>
+
+    <h3>Spring Security</h3>
+    <p>
+        타임리프 문법에서 시큐리티 적용 시 로그인과 로그아웃에 대한 이벤트를
+        사용할 수 있다.
+    </p>
+<!--    <th:block sec:authorize="isAuthenticated()">로그인 했음</th:block>-->
+<!--    <th:block sec:authorize="isAuthenticated() == false">로그인 하지 않음</th:block>-->
 </body>
 </html>

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/lecture/*")
@@ -54,9 +56,26 @@ public class LectureController {
         // 인스턴스의 타입 = 클래스 명이 곧 키값이 된다.
         mv.addObject(criteria);
 
+        List<MemberDTO> memberList = new ArrayList<>();
+        memberList.add(new MemberDTO("하츄핑", 4, '여', "서울시 노진구"));
+        memberList.add(new MemberDTO("시진핑", 6, '남', "베이징 사천구"));
+        memberList.add(new MemberDTO("티니핑", 8, '남', "서울시 광진구"));
+        memberList.add(new MemberDTO("핑구", 4, '남', "서울시 핑구"));
+
+        mv.addObject("memberList", memberList);
+
+        Map<String, MemberDTO> memberMap = new HashMap<>();
+        memberMap.put("1", new MemberDTO("하츄핑", 4, '여', "서울시 노진구"));
+        memberMap.put("2", new MemberDTO("시진핑", 6, '남', "베이징 사천구"));
+        memberMap.put("3", new MemberDTO("티니핑", 8, '남', "서울시 광진구"));
+        memberMap.put("4", new MemberDTO("핑구", 4, '남', "서울시 핑구"));
+
+        mv.addObject("memberMap", memberMap);
+
         mv.setViewName("lecture/etc");
 
         return mv;
     }
+
 
 }
