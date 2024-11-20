@@ -77,5 +77,15 @@ public class LectureController {
         return mv;
     }
 
+    @GetMapping("fragment")
+    public ModelAndView fragment(ModelAndView mv) {
 
+        mv.addObject("test", "value");
+        mv.addObject("test2", "value2");
+
+
+        mv.setViewName("lecture/fragment");
+
+        return mv;
+    }
 }

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        comment.
+        Fragment 문법은 공통적으로 반복되는 HTML 코드를
+        줄이기 위해 존재하는 문법이다.
+        일반적인 웹 페이지에서는 반복되는 공통 영역들이
+        존재하게 된다. ex) 헤더, 풋터, 네비게이션바, 사이드바
+     -->
+    <header th:fragment="headerFragment" class="header">
+        <h1>Fragment Header</h1>
+    </header>
+</body>
+</html>
