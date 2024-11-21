@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>👀카테고리 코드 조회👀</h1>
+
+    <form action="/menu/categoryList" method="post">
+        <label>카테고리 코드 : </label>
+        <select name="categoryList" id="categoryList"></select>
+        <button type="submit" onclick=location.href='/menu/categoryList'>조회</button>
+    </form>
+
+    <script>
+        fetch("/menu/categoryList")
+            // json 형식의 문자열 값을 자바스크립트 객체 형식으로 변환
+            .then(res => res.json())    // 이 구문에서 자바스크립트 사용할 수 있게 변환 완료
+            .then(data => {             // 변환 된 데이터가 data 변수에 담김
+                console.log(data);
+                // select 태그 가져옴.
+                const $categoryCode = document.getElementById("categoryList");
+                // for in 반복문 : 변수에 data 에 있는 프로퍼티 키 대입
+                for (let index in data) {
+                    const $option = document.createElement("option");
+                    $option.value = data[index].code;
+                    $option.textContent = data[index].name;
+                    $categoryCode.appendChild($option);
+                }
+            })
+    </script>
+
+
+</body>
+</html>

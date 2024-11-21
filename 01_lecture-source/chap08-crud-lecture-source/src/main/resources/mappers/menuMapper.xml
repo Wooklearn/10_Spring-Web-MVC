@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.crud.menu.model.dao.MenuMapper">
+    <resultMap id="menuResultMap" type="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.crud.menu.model.dto.CategoryDTO">
+        <id property="code" column="category_code"/>
+        <result property="name" column="category_name"></result>
+        <result property="refCategoryCode" column="ref_category_code"></result>
+    </resultMap>
+
+    <select id="findAllMenus" resultMap="menuResultMap">
+        SELECT
+            MENU_CODE,
+            MENU_NAME,
+            MENU_PRICE,
+            CATEGORY_CODE,
+            ORDERABLE_STATUS
+        FROM
+            TBL_MENU
+        WHERE
+            ORDERABLE_STATUS = 'Y'
+        ORDER BY
+            MENU_CODE
+    </select>
+
+    <select id="findAllCategory" resultMap="categoryResultMap">
+        SELECT
+            *
+        FROM
+        TBL_CATEGORY
+    </select>
+
+    <insert id="registNewMenu" parameterType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        insert into tbl_menu
+        (
+            menu_name,
+            menu_price,
+            category_code,
+            orderable_status
+        )
+        values
+        (
+            #{name},
+            #{price},
+            #{categoryCode},
+            #{orderableStatus}
+        )
+    </insert>
+
+    <select id="selectMenu">
+        SELECT
+            *
+        FROM
+            TBL_MENU
+        FROM
+            CATEGORY_CODE = ${CATEGORY_CODE}
+    </select>
+</mapper>
