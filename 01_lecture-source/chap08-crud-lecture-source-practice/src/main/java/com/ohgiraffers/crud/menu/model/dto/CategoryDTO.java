@@ -10,9 +10,8 @@ import org.apache.ibatis.type.Alias;
 @ToString
 @Alias("category")
 public class CategoryDTO {
-
-    private int code;
+    // 숙제
+    private Integer code;
     private String name;
     private Integer refCategoryCode;
-
 }

@@ -2,7 +2,6 @@ package com.ohgiraffers.crud.menu.model.service;
 
 import com.ohgiraffers.crud.menu.model.dao.MenuMapper;
 import com.ohgiraffers.crud.menu.model.dto.CategoryDTO;
-import com.ohgiraffers.crud.menu.model.dto.MenuAndCategoryDTO;
 import com.ohgiraffers.crud.menu.model.dto.MenuDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +30,10 @@ public class MenuService {
         return menuMapper.findAllCategory();
     }
 
+    public List<CategoryDTO> categorySearch(CategoryDTO category) {
+        return menuMapper.categoryList(category);
+    }
+
     /* comment.
     *   스프링 프레임워크에서 제공하는 트랜젝션 관리 어노테이션으로
     *   데이터베이스의 상태를 변화시키는 작업(DML) 을 하나의 단위로
@@ -40,7 +43,7 @@ public class MenuService {
     *   데이터의 일관성을 유지하는 데 사용된다.
     *   내부적으로 AOP 기능을 사용하고 있다.
     *   */
-    @Transactional
+//    @Transactional
     public void registMenu(MenuDTO newMenu) {
 
         menuMapper.registNewMenu(newMenu);
@@ -48,30 +51,5 @@ public class MenuService {
 
     public List<MenuDTO> findMenu() {
         return menuMapper.findMenu();
-    }
-
-    // 카테고리 join 조회 메소드
-    public List<MenuAndCategoryDTO> findAllMenuAndCategory() {
-
-        return menuMapper.findAllMenuAndCategory();
-    }
-
-    // 메뉴코드로 삭제 메소드
-    public void deleteMenu(int code) {
-
-        menuMapper.deleteMenu(code);
-    }
-
-
-    public MenuDTO menuDetail(String code) {
-
-        return menuMapper.menuDetail(code);
-
-    }
-
-    @Transactional
-    public void updateMenu(MenuDTO menu) {
-
-        menuMapper.updateMenu(menu);
     }
 }

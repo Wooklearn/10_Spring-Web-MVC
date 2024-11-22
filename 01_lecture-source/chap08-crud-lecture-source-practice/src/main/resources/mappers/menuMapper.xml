@@ -17,6 +17,21 @@
         <result property="refCategoryCode" column="ref_category_code"></result>
     </resultMap>
 
+    <select id="findMenu" resultType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        SELECT
+        MENU_CODE,
+        MENU_NAME,
+        MENU_PRICE,
+        CATEGORY_CODE,
+        ORDERABLE_STATUS
+        FROM
+        TBL_MENU
+        WHERE
+        ORDERABLE_STATUS = 'Y'
+        ORDER BY
+        MENU_CODE
+    </select>
+
     <select id="findAllMenus" resultMap="menuResultMap">
         SELECT
             MENU_CODE,
@@ -56,67 +71,13 @@
         )
     </insert>
 
-    <select id="selectMenu">
+    <select id="categoryList" resultMap="categoryResultMap" parameterType="com.ohgiraffers.crud.menu.model.dto.CategoryDTO">
         SELECT
             *
         FROM
             TBL_MENU
-        FROM
-            CATEGORY_CODE = ${CATEGORY_CODE}
-    </select>
-
-    <resultMap id="joinResultMap" type="com.ohgiraffers.crud.menu.model.dto.MenuAndCategoryDTO">
-        <id property="code" column="menu_code"/>
-        <result property="name" column="menu_name"/>
-        <result property="price" column="menu_price"/>
-        <result property="orderableStatus" column="orderable_status"/>
-        <association property="categoryDTO" javaType="com.ohgiraffers.crud.menu.model.dto.CategoryDTO">
-            <id property="code" column="category_code"/>
-            <result property="name" column="category_name"/>
-            <result property="refCategoryCode" column="ref_category_code"/>
-        </association>
-    </resultMap>
-
-    <select id="findAllMenuAndCategory" resultMap="joinResultMap">
-        SELECT
-            a.MENU_CODE,
-            a.MENU_NAME,
-            a.MENU_PRICE,
-            a.ORDERABLE_STATUS,
-            b.*
-        FROM
-            TBL_MENU a
-        JOIN
-            TBL_CATEGORY b ON (a.CATEGORY_CODE = b.CATEGORY_CODE)
         WHERE
-            a.ORDERABLE_STATUS = 'Y'
+            CATEGORY_CODE = #{code}
     </select>
-
-    <delete id="deleteMenu" parameterType="int">
-        DELETE FROM
-            TBL_MENU
-        WHERE
-            MENU_CODE = ${code}
-    </delete>
-
-    <select id="menuDetail" resultMap="menuResultMap">
-        select
-            *
-        from
-            tbl_menu
-        where
-            menu_code = #{code}
-    </select>
-
-    <update id="updateMenu" parameterType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
-        update tbl_menu
-        set
-            menu_name = #{name},
-            menu_price = #{price},
-            category_code = #{categoryCode},
-            orderable_status = #{orderableStatus}
-        where
-            menu_code = #{code}
-    </update>
 
 </mapper>

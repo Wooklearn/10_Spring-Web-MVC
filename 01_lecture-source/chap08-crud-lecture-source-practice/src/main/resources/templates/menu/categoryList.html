@@ -10,6 +10,12 @@
 <body>
     <h1>👀카테고리 코드 조회👀</h1>
 
+    <!--
+        form 태그는 페이지 이동 (기본)
+        name 값을 지정해줘야만 폼 안에있는 태그의 데이터를 전달함
+        submit, button 클릭시 action URL 호출함.
+     -->
+    <!-- get 방식이라 쿼리스트링으로 넘김 http://localhost:7777/menu/categoryList?code=8 -->
     <form action="/menu/categoryList" method="get">
         <label>카테고리 코드 : </label>
         <input type="number" name="code"/>

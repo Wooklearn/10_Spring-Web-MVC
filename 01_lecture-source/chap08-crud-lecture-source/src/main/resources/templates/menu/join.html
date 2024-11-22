@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Join 결과 테이블</h1>
+    <table border="1">
+        <tr>
+            <th>메뉴 코드</th>
+            <th>메뉴 이름</th>
+            <th>메뉴 가격</th>
+            <th>카테고리 코드</th>
+            <th>판매 상태</th>
+            <th>카테고리 이름</th>
+            <th>상위 카테고리</th>
+        </tr>
+        <tr th:each="row : ${joinList}">
+            <td th:text="${row.code}"></td>
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.price}"></td>
+            <td th:text="${row.categoryDTO.code}"></td>
+            <td th:text="${row.orderableStatus}"></td>
+            <td th:text="${row.categoryDTO.name}"></td>
+            <td th:text="${row.categoryDTO.refCategoryCode}"></td>
+        </tr>
+    </table>
+</body>
+</html>
