@@ -25,7 +25,7 @@
         </tr>
         <tr th:each="menu : ${menuList}">
             <td align="center">
-                <a th:href="@{/menu/code(code=${menu.code})}" th:text="${menu.code}" ></a>
+                <a th:href="@{/menu/menuDetail(code=${menu.code})}" th:text="${menu.code}" ></a>
             </td>
             <td th:text="${menu.name}"></td>
             <td th:text="${menu.price}" align="center"></td>

@@ -17,7 +17,7 @@ public class MenuService {
     private final MenuMapper menuMapper;
 
     @Autowired
-    private MenuService(MenuMapper menuMapper) {
+    public MenuService(MenuMapper menuMapper) {
         this.menuMapper = menuMapper;
     }
 
@@ -57,6 +57,7 @@ public class MenuService {
     }
 
     // 메뉴코드로 삭제 메소드
+    @Transactional
     public void deleteMenu(int code) {
 
         menuMapper.deleteMenu(code);

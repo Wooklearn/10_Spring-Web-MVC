@@ -150,7 +150,7 @@ public class MenuController {
 
     }
 
-    @GetMapping("code")
+    @GetMapping("menuDetail")
     public String menuDetail(@RequestParam("code") String code, Model model){
 
         System.out.println("코드 확인용 : " + code);
@@ -174,16 +174,16 @@ public class MenuController {
         return "menu/update";
     }
 
-//    @PostMapping("update")
-//    public String updateMenuResult(@ModelAttribute MenuDTO menu, RedirectAttributes rttr, Locale locale){
-//        System.out.println("메뉴 값 확인 : " + menu);
-//
-//        menuService.updateMenu(menu);
-//
-//        rttr.addFlashAttribute("successMessage",
-//                messageSource.getMessage("update", new Object[]{menu.getName(), menu.getPrice()}, locale));
-//
-//        return "redirect:/menu/menuDetail?code=" + menu.getCode();
-//    }
+    @PostMapping("update")
+    public String updateMenuResult(@ModelAttribute MenuDTO menu, RedirectAttributes rttr, Locale locale){
+        System.out.println("메뉴 값 확인 : " + menu);
+
+        menuService.updateMenu(menu);
+
+        rttr.addFlashAttribute("successMessage",
+                messageSource.getMessage("update", new Object[]{menu.getName(), menu.getPrice()}, locale));
+
+        return "redirect:/menu/menuDetail?code=" + menu.getCode();
+    }
 
 }
