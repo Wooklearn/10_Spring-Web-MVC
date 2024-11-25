@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.crud.menu.model.dao.MenuMapper">
+    <resultMap id="menuResultMap" type="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.crud.menu.model.dto.CategoryDTO">
+        <id property="code" column="category_code"/>
+        <result property="name" column="category_name"></result>
+        <result property="refCategoryCode" column="ref_category_code"></result>
+    </resultMap>
+
+    <select id="findMenu" resultType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        SELECT
+        MENU_CODE,
+        MENU_NAME,
+        MENU_PRICE,
+        CATEGORY_CODE,
+        ORDERABLE_STATUS
+        FROM
+        TBL_MENU
+        WHERE
+        ORDERABLE_STATUS = 'Y'
+        ORDER BY
+        MENU_CODE
+    </select>
+
+    <select id="findAllMenus" resultMap="menuResultMap">
+        SELECT
+            MENU_CODE,
+            MENU_NAME,
+            MENU_PRICE,
+            CATEGORY_CODE,
+            ORDERABLE_STATUS
+        FROM
+            TBL_MENU
+        WHERE
+            ORDERABLE_STATUS = 'Y'
+        ORDER BY
+            MENU_CODE
+    </select>
+
+    <select id="findAllCategory" resultMap="categoryResultMap">
+        SELECT
+            *
+        FROM
+        TBL_CATEGORY
+    </select>
+
+    <insert id="registNewMenu" parameterType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        insert into tbl_menu
+        (
+            menu_name,
+            menu_price,
+            category_code,
+            orderable_status
+        )
+        values
+        (
+            #{name},
+            #{price},
+            #{categoryCode},
+            #{orderableStatus}
+        )
+    </insert>
+
+    <select id="categoryList" resultMap="categoryResultMap" parameterType="com.ohgiraffers.crud.menu.model.dto.CategoryDTO">
+        SELECT
+            menu_code,
+            menu_name,
+            menu_price,
+            category_code,
+            orderable_status
+        FROM
+            TBL_MENU
+        WHERE
+            CATEGORY_CODE = #{code}
+    </select>
+
+    <select id="menuAll" resultMap="menuResultMap">
+        select
+            *
+        from
+            tbl_menu
+    </select>
+
+    <delete id="detailMenu" parameterType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        DELETE FROM tbl_menu
+        WHERE menu_code = ${code};
+    </delete>
+
+    <select id="menuDetail" resultMap="menuResultMap">
+        select
+            *
+        from
+          tbl_menu
+        where
+           menu_code = #{code}
+    </select>
+
+    <update id="menuUpdate" parameterType="com.ohgiraffers.crud.menu.model.dto.MenuDTO">
+        update tbl_menu
+
+        set
+        menu_name = #{name},
+        menu_price = #{price},
+        category_code = #{categoryCode},
+        orderable_status = #{orderableStatus}
+
+        where
+        menu_code = #{code}
+    </update>
+</mapper>
