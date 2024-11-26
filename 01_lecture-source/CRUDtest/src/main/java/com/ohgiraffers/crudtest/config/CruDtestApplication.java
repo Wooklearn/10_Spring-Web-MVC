@@ -1,4 +1,4 @@
-package com.ohgiraffers.crudtest;
+package com.ohgiraffers.crudtest.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
