@@ -14,11 +14,13 @@
             <th>판매 여부</th>
         </tr>
         <tr th:each="menu : ${menuList}">
-            <td th:text="${menu.code}"></td>
-            <td th:text="${menu.name}"></td>
-            <td th:text="${menu.price}"></td>
-            <td th:text="${menu.categoryCode}"></td>
-            <td th:text="${menu.orderableStatus}"></td>
+            <td align="center">
+                <a th:href="@{/menu/menuDetail(code=${menu.code})}" th:text="${menu.code}"></a>
+            </td>
+            <td th:text="${menu.name}" align="center"></td>
+            <td th:text="${menu.price}" align="center"></td>
+            <td th:text="${menu.categoryCode}" align="center"></td>
+            <td th:text="${menu.orderableStatus}" align="center"></td>
         </tr>
     </table>
 </body>

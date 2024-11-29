@@ -36,11 +36,6 @@ public class MenuController {
         return "menu/list";
     }
 
-//    @GetMapping("select")
-//    public String SelectMenu(Model model) {
-//        List<MenuDTO> menuList = menuService.selectMenu();
-//
-//    }
     @GetMapping("select")
     public void selectMenu1(){}
 
