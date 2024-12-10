@@ -31,4 +31,5 @@ public interface MenuMapper {
     MenuDTO menuDetail(String code);
 
     void updateMenu(MenuDTO menu);
+
 }
