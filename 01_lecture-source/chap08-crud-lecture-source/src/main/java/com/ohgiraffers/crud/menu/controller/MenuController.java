@@ -186,4 +186,6 @@ public class MenuController {
         return "redirect:/menu/menuDetail?code=" + menu.getCode();
     }
 
+    
+
 }
